@@ -141,7 +141,7 @@ semantic-release-cli setup
 
 ![dialogue](https://cloud.githubusercontent.com/assets/908178/9428123/3628dfec-499f-11e5-8bdd-8f3042dd95ed.png)
 
-_[This is what happens under the hood.](https://github.com/semantic-release/cli#manual-setup)_
+_[This is what happens under the hood.](https://github.com/semantic-release/cli#what-it-does)_
 
 ## Options
 
@@ -206,7 +206,11 @@ module.exports = function (pluginConfig, config, callback) {}
 
 ### `analyzeCommits`
 
-This plugin is responsible for determining the type of the next release. It additionally receives a `commits` array inside `config`. One commit is an object with a `message` and `hash` property. Call the callback with `'major'`, `'premajor'`, `'minor'`, `'preminor'`, `'patch'`, `'prepatch'`, `'prerelease'`, or `null` if nothing changed. Have a look at the [default implementation](https://github.com/semantic-release/commit-analyzer/).
+This plugin is responsible for determining the type of the next release. It additionally receives a `commits` array inside `config`. One commit is an object with a `message` and `hash` property. Call the callback with `'major'`, `'premajor'`, `'minor'`, `'preminor'`, `'patch'`, `'prepatch'`, `'prerelease'`, or `null` if nothing changed.
+
+While it may be tempting to use `'prepatch'`, `'preminor'` & `'prerelease'` as part of a release process, this is strongly discouraged. A better approach is to use [dist-tags](https://docs.npmjs.com/cli/dist-tag) to create release channels (such as 'latest', 'next', 'stable') and to return only `'major'`, `'premajor'` and `'minor'` from the commit analyzer.
+
+Have a look at the [default implementation](https://github.com/semantic-release/commit-analyzer/).
 
 ### `generateNotes`
 
